@@ -17,6 +17,13 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 
 find_package(yaml-cpp REQUIRED)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/")
+find_package(Fuzzy REQUIRED)
+include_directories(${Fuzzy_INCLUDE_DIRS})
+
+include_directories(/usr/local/include/fl) 
+link_directories(/usr/local/lib) 
+
 find_package(Python3 COMPONENTS Interpreter Development)
 message("Python_FOUND:${Python3_FOUND}")
 # message("Python_VERSION:${Python3_VERSION}")
@@ -54,8 +61,8 @@ else()
 endif()
 
 add_library(dag-sched SHARED ${dag-sched-SRC})
-target_link_libraries(dag-sched ${dag-sched-LIBS} )
-
+target_link_libraries(dag-sched ${dag-sched-LIBS} fuzzylite)
+target_link_libraries(dag-sched ${Fuzzy_LIBRARIES})
 #-------------------------------------------------------------------------------
 # Build executables
 #-------------------------------------------------------------------------------

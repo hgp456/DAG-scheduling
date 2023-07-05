@@ -52,14 +52,17 @@ float blockingWorkload(const Taskset& taskset, const int x , const float interva
 
 bool GP_LP_FTP_Serrano16_C(Taskset taskset, const int m){
     std::sort(taskset.tasks.begin(), taskset.tasks.end(), deadlineMonotonicSorting);
+    //! 基于DDL对任务进行排序
 
     std::vector<float> R_old (taskset.tasks.size(), 0);
     std::vector<float> R (taskset.tasks.size(), 0);
+    //!设置响应时间为0
 
     for(int i=0; i<taskset.tasks.size(); ++i){
         R_old[i] = taskset.tasks[i].getLength() + 1./m * (taskset.tasks[i].getVolume() - taskset.tasks[i].getLength());
         taskset.tasks[i].R = R_old[i];
     }
+    //!计算任务响应时间
 
     float interf = 0;
     float blocking = 0;
@@ -72,7 +75,7 @@ bool GP_LP_FTP_Serrano16_C(Taskset taskset, const int m){
         at_least_one_update = false;
 
         for(int i=0; i<taskset.tasks.size(); ++i){
-
+            //!响应时间大于截止时间,则不可调度
             if(R_old[i] > taskset.tasks[i].getDeadline())
                 return false;
 
@@ -97,10 +100,10 @@ bool GP_LP_FTP_Serrano16_C(Taskset taskset, const int m){
 
             taskset.tasks[i].R = R[i];
 
-            if( !areEqual<float>(R[i], R_old[i]))
+            if( !areEqual<float>(R[i], R_old[i]))//! 如果相应时间不一样,则可以再更新
                 at_least_one_update = true;
             
-            if (R[i] > taskset.tasks[i].getDeadline())
+            if (R[i] > taskset.tasks[i].getDeadline())//! 如果相应时间大于了截止时间,则该任务不可调度
                 return false;
         }
         init = false;

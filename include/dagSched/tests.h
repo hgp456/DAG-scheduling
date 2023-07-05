@@ -5,6 +5,8 @@
 #include "dagSched/DAGTask.h"
 #include "dagSched/Taskset.h"
 
+
+
 namespace dagSched{
 
 //common
@@ -54,8 +56,18 @@ bool GP_FP_Han2019_C_1(const DAGTask& task, const std::vector<int> m);
 bool GP_FP_He2019_C(DAGTask task, const int m);
 bool GP_FP_FTP_He2019_C(Taskset taskset, const int m); 
 
+bool GP_FP_Huang2023(Taskset taskset, const int m);
+int GP_FP_Huang2023_Multi(Taskset taskset, const int m);
 
+// bool GP_FP_Huang2023_Multi_only_WCET(Taskset taskset, const int m);
 //global policy, limited preemptive
+std::vector<float> Taspa2023(Taskset taskset, const int m);
+std::vector<float> Taspa2023LLF(Taskset taskset, const int m);
+std::vector<float> Taspa2023DFS(Taskset taskset, const int m);
+
+bool TopologicalScheduling(Taskset taskset, const int m);
+
+bool critical_path(Taskset taskset, const int m);
 
 bool GP_LP_FTP_Serrano16_C(Taskset taskset, const int m); 
 
@@ -85,10 +97,14 @@ bool P_LP_FTP_Casini2018_C(Taskset taskset, const int m);
 bool P_LP_FTP_Casini2018_C_withAssignment(Taskset taskset, const int m, const PartitioningCoresOrder_t c_order);
 
 bool G_LP_FTP_Nasri2019_C(Taskset taskset, const int m);
+int Taspa2023DFSFS(Taskset taskset, const int m);
+
 
 #ifdef ZAHAF2019
 bool P_LP_EDF_Zahaf2019_C(const Taskset& taskset, const int m);
 #endif
+
+int GP_FP_Huang2025_Multi(Taskset taskset, const int m);
 
 }
 

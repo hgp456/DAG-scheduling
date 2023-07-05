@@ -27,6 +27,15 @@ class SubTask{
     float EFT       = -1;   // Earliest Finishing Time
     float LST       = -1;   // Latest Starting Time
 
+    float taspaorder=0;
+    float  runningtime=0;
+    float wcetSum=0;
+    bool isReady=false;
+    bool isWait=false;
+    bool isfinish=false;
+    bool isrunning=false;
+    float fpriValue=0;
+    int waitTime=0;
     subTaskMode mode = NORMAL_T;    // type of node
 
     std::vector<SubTask*> succ;     // successors 

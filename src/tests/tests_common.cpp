@@ -92,7 +92,7 @@ bool sortDensDecUtilDec(const node_infos& a, const node_infos& b){
 
 bool WorstFitProcessorsAssignment(Taskset& taskset, const int m){
 
-    std::vector<float> proc_util (m,0);
+    std::vector<float> proc_util (m,0);//!处理器有几个
     float min_proc_util = 1;
     int min_idx = -1;
 
@@ -102,8 +102,8 @@ bool WorstFitProcessorsAssignment(Taskset& taskset, const int m){
         std::vector<SubTask*> V = taskset.tasks[x].getVertices();
         for(int i=0; i<V.size(); ++i){
             node_infos n;
-            n.task_id = x;
-            n.v_id = i;
+            n.task_id = x;//! 第几个任务集
+            n.v_id = i; //!   第几个节点
             n.density = taskset.tasks[x].getLength() / taskset.tasks[x].getDeadline();
             n.utilization = V[i]->c / taskset.tasks[x].getPeriod();
 
